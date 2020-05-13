@@ -160,7 +160,7 @@ def read_input(raw_input):
 
     df = pd.concat([df, pd.DataFrame(hole_filler)], ignore_index=True)
 
-    return df[hole_filler[0].keys()]
+    return df[table[0].keys()]
 
 
 def get_latex_reduced(tab, do_merged_only, show_unc, do_csv):

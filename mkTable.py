@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import importlib
 import os
+import sys
 import argparse
 import subprocess
 import pandas as pd
@@ -254,7 +257,7 @@ if __name__ == '__main__':
         exit()
     
     # Run mlFitNormsToText and save output
-    df = read_input(subprocess.check_output(['python', 'mlfitNormsToText.py', args.input_file, '-u']))
+    df = read_input(subprocess.check_output(['mlfitNormsToText.py', args.input_file, '-u']))
 
     try: map_path = args.mergingMap
     except: map_path = None
@@ -262,6 +265,7 @@ if __name__ == '__main__':
     if not map_path is None:
         if os.path.exists(args.mergingMap):
             print('--> Performing category and/or sample merging as specified in {}'.format(args.mergingMap))
+            sys.path.insert(1, os.getcwd())
             merging_map = importlib.import_module(args.mergingMap.replace('.py',''))
 
             try: categories_to_merge = merging_map.categories_to_merge
